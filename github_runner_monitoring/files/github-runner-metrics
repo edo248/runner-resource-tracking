@@ -1,0 +1,11 @@
+/var/log/github-runner-metrics/*.json {
+    daily
+    rotate 5
+    missingok
+    notifempty
+    dateext
+    maxage 5
+    compress
+    delaycompress
+    nodelaycompress
+}

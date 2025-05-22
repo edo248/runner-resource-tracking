@@ -1,0 +1,29 @@
+- name: Install pre-job hook script
+  copy:
+    src: pre_job.sh
+    dest: "{{ runner_hook_path }}/pre_job.sh"
+    mode: '0755'
+
+- name: Install metrics writer script
+  copy:
+    src: write_runner_metrics.py
+    dest: "{{ runner_metrics_script_path }}"
+    mode: '0755'
+
+- name: Install Telegraf config
+  copy:
+    src: github_runner_metrics.conf
+    dest: "{{ telegraf_config_path }}/github_runner_metrics.conf"
+    mode: '0644'
+
+- name: Install logrotate config
+  copy:
+    src: github-runner-metrics
+    dest: /etc/logrotate.d/github-runner-metrics
+    mode: '0644'
+
+- name: Deploy runner .env file
+  template:
+    src: env.j2
+    dest: "{{ runner_install_path }}/.env"
+    mode: '0644'
